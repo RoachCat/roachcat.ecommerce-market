@@ -7,6 +7,7 @@ Vue.config.productionTip = false;
 
 import "@/plugins/fontAwesome";
 import "@/filters/price"
+import "@/filters/snippet"
 
 new Vue({
   router,

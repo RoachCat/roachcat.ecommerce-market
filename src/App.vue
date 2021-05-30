@@ -1,8 +1,8 @@
 <template>
   <div id="app" class="app">
-    <div class="body-overlay" ref="body-overlay"></div>
+    <div class="body-overlay" id="body-overlay" ref="body-overlay"></div>
     <Sidebar
-      @closeSidebar="handleShowSidebar"
+      @handleSidebarStatus="handleShowSidebar"
       :sidebarFlag="showSidebar"
       ref="sidebar"
       id="sidebar"

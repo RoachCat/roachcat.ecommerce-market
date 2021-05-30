@@ -1,9 +1,9 @@
 <template>
   <div class="product-detail">
-    <div class="product" v-if="item">
-      <img :src="item.pictures[0].url" alt="" />
-      <p>{{ item.title }}</p>
-      <p>{{ item.price | price }}</p>
+    <div class="product" v-if="product">
+      <img :src="product.pictures[0].url" :alt="product.name" />
+      <p>{{ product.title }}</p>
+      <p>{{ product.price | price }}</p>
     </div>
   </div>
 </template>
@@ -13,15 +13,15 @@ export default {
   name: "ProductDetail",
   data() {
     return {
-      item: null,
+      product: null,
     };
   },
   async created() {
-    let item = await this.$store.dispatch(
+    let product = await this.$store.dispatch(
       "products/getProductById",
       this.$route.params.id
     );
-    this.item = item;
+    this.product = product;
   },
 };
 </script>

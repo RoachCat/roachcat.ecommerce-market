@@ -1,15 +1,18 @@
 <template>
-  <div class="sidebar" name="sidebar" ref="sidebar">
-    <ul class="categories">
-      <li
-        class="categories__category"
-        v-for="category in allCategories"
-        :key="category.id"
-        @click="goToCategorySection(category.id)"
-      >
-        {{ category.name }}
-      </li>
-    </ul>
+  <div class="sidebar" name="sidebar" id="sidebar">
+    <div class="sidebar-container">
+      <h2 class="sidebar-container__title">Categorías</h2>
+      <ul class="categories">
+        <li
+          class="categories__category"
+          v-for="category in allCategories"
+          :key="category.id"
+          @click="goToCategoryView(category.id)"
+        >
+          {{ category.name }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -28,8 +31,23 @@ export default {
     );
   },
   methods: {
-    goToCategorySection(categoryId) {
-      console.log(categoryId);
+    async goToCategoryView(categoryId) {
+      this.$router.push({
+        name: "Category",
+        params: {
+          id: categoryId,
+        },
+      });
+      this.hideSidebar();
+    },
+    hideSidebar() {
+      let sidebar = document.getElementById("sidebar");
+      let bodyOverlay = document.getElementById("body-overlay");
+      document.body.style.overflow = "initial";
+      sidebar.style.left = "-500px";
+      bodyOverlay.style.display = "none";
+      this.$emit("handleSidebarStatus", false);
+      sidebar.scrollTo(0, 0);
     },
   },
 };
@@ -58,19 +76,29 @@ export default {
     background-color: rgba(0, 0, 0, 0.1);
   }
 }
-
+.sidebar-container {
+  padding: 15px 30px;
+  &__title {
+    text-align: left;
+    // margin-left: 30px;
+    // margin-bottom: 0px;
+  }
+}
 .categories {
+  padding: 0px;
   display: flex;
   flex-direction: column;
   margin: 0px;
-  padding: 15px 20px;
   text-align: left;
   list-style-type: none;
   &__category {
+    display: flex;
+    justify-content: space-between;
     padding: 5px 0px;
     margin: 3px 0px;
     &:hover {
       cursor: pointer;
+      text-decoration: underline;
     }
   }
 }

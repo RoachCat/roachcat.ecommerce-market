@@ -16,11 +16,11 @@ export default {
         },
     },
     actions: {
-        async getProductsByCategory({ commit }) {
+        async getProductById({ commit }, id) {
             try {
                 let response = await axios.get(
                     process.env.VUE_APP_MERCADOLIBRE_ROUTE +
-                    `/sites/MCO/search?category=MCO1648`
+                    `/items/${id}?include_attributes=all`,
                 );
                 if (response.status === 200) {
                     commit("setProducts", response.data);
@@ -30,11 +30,14 @@ export default {
                 console.log(error);
             }
         },
-        async getProductById({ commit }, id) {
+        async getProductsByCategory({ commit }, params) {
             try {
                 let response = await axios.get(
                     process.env.VUE_APP_MERCADOLIBRE_ROUTE +
-                    `/items/${id}?include_attributes=all`,
+                    `/sites/MCO/search`,
+                    {
+                        params: params
+                    }
                 );
                 if (response.status === 200) {
                     commit("setProducts", response.data);

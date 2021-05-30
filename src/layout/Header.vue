@@ -1,6 +1,7 @@
 <template>
   <div class="header">
     <div class="header-bar">
+      <p class="home" @click="$router.push({ name: 'Home' })">Soy un Home jasjasajs</p>
       <div class="search-input-container">
         <input
           class="search-input-container__search-input"
@@ -31,14 +32,13 @@
 </template>
 
 <script>
-
 export default {
   name: "Header",
   data() {
     return {
       navBarItems: [
         {
-          name: "All",
+          name: "Categorías",
           routeName: "Sidebar",
           icon: "fas fa-bars",
         },
@@ -50,29 +50,42 @@ export default {
       ],
     };
   },
-  mounted(){
-    this.$refs["search-input"].focus()
+  mounted() {
+    this.$refs["search-input"].focus();
   },
   methods: {
     search() {
       console.log("Hola");
     },
-    goToSection(sectionName){
+    goToSection(sectionName) {
       if (sectionName === "Sidebar") {
-        this.$emit("displaySidebar", true)        
+        this.$emit("displaySidebar", true);
+      } else {
+        this.$router.push({name: sectionName})
       }
-    }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .header-bar {
+  position: relative;
   display: flex;
   justify-content: center;
   padding: 45px 0px;
   background-color: $header-color;
 }
+
+.home{
+  top: 35px;
+  left: 50px;
+  position: absolute;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
 .search-input-container {
   width: 40%;
   position: relative;
@@ -113,7 +126,7 @@ export default {
   &__li {
     padding: 4px 20px;
     border-left: 1px solid #5eaaa8;
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
   }
