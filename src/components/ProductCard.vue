@@ -40,7 +40,7 @@ export default {
   justify-content: space-between;
   cursor: pointer;
   width: 250px;
-  margin: 0px 18px 20px 18px;
+  margin: 0px 10px 20px 10px;
   padding-top: 2px;
   border-radius: 5px;
   background-color: white;

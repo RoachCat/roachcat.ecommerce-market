@@ -25,7 +25,7 @@ export default {
 
 <style lang="scss" scoped>
 .category-items {
-  width: 75%;
+  width: 85%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;

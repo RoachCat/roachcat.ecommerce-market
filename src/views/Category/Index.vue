@@ -5,13 +5,13 @@
     </div>
     <template v-else>
       <h1>{{ this.selectedCategory.name }}</h1>
-      <div class="category-content">
+      <section class="category-content">
         <CategorySidebar
           v-if="selectedCategory.children_categories.length > 0"
           :childrenCategories="selectedCategory"
         />
         <CategoryItems :productsByCategory="productsByCategory" />
-      </div>
+      </section>
     </template>
   </div>
 </template>
@@ -70,17 +70,12 @@ export default {
 
 <style lang="scss" scoped>
 .category-content {
-  margin-top: 30px;
-    padding: 0px 100px;
+  width: 100%;
+  max-width: 1500px;
   display: flex;
-}
+  margin: 0px auto;
 
-@media (min-width: 1500px) {
-  .category-content {
-    padding: 0px 150px;
-  }
 }
-
 .spinner-container {
   position: relative;
   width: 100%;
