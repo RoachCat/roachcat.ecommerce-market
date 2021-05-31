@@ -1,8 +1,9 @@
 <template>
   <div class="product-detail">
     <section class="product" v-if="product">
-      <ProductImage :product="product" />
-      <ProductInfo :product="product"/>
+    <h1 class="product__title">{{product.title}}</h1>
+      <ProductImage class="product-image" :product="product" />
+      <ProductInfo class="product-info" :product="product"/>
     </section>
   </div>
 </template>
@@ -39,5 +40,25 @@ export default {
   max-height: calc(100vh - 20vh);
   margin: 0px auto;
   display: flex;
+  &__title{
+    display: none;
+  }
+}
+
+@media (max-width: 770px) {
+  .product{
+    flex-direction: column;
+    &__title{
+      display: block;
+      margin-top: 40px;
+      margin-bottom: 0px;
+    }
+  }  
+  .product-image{
+    width: 100%;
+  }
+  .product-info{
+    width: 100%;
+  }
 }
 </style>

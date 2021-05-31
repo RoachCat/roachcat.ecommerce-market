@@ -3,7 +3,10 @@
     <div class="info-container">
       <h1 class="info-container__title">{{ product.title }}</h1>
       <p class="info-container__price">{{ product.price | price }}</p>
-      <input type="number" min="0" />
+      <label for="quantity" class="quantity">
+        Cantidad:
+        <input id="quantity" type="number" min="0" class="quantity__input" />
+      </label>
       <article class="description-article">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis impedit
         quod, autem magni rerum porro dignissimos recusandae molestiae officia
@@ -61,8 +64,21 @@ export default {
   }
 }
 
-.description-article{
-    margin-top: 20px;
-    line-height: 23px;
+.description-article {
+  margin-top: 20px;
+  line-height: 23px;
+}
+
+.quantity {
+  font-weight: bold;
+  font-size: 16px;
+  &__input {
+    font-size: 16px;
+    border: none;
+    height: 1.8em;
+    &:focus {
+      outline: 0;
+    }
+  }
 }
 </style>
