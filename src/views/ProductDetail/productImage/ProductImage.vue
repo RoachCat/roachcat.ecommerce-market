@@ -128,6 +128,8 @@ export default {
   overflow: hidden;
   &__img {
     width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
   &__img-responsive {
     display: none;
@@ -158,9 +160,11 @@ export default {
     }
     &__img-responsive {
       display: block;
-      scroll-snap-align: center;
+      scroll-snap-align: start;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
       flex: 0 0 100%;
-
       &:target {
         transform: scale(0.8);
       }
