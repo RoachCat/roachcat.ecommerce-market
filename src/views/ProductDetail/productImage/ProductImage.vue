@@ -1,5 +1,11 @@
 <template>
   <div class="product-image">
+    <button class="img-button__left" @click="returnPhoto">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="img-button__right" @click="turnPhoto">
+      <i class="fas fa-chevron-right"></i>
+    </button>
     <div class="thumbnail-group">
       <button
         class="thumbnail-container"
@@ -10,14 +16,7 @@
         <img class="thumbnail-container__img" :src="image.url" alt="" />
       </button>
     </div>
-    <div class="image-container">
-      <img
-        v-for="(image, index) in product.pictures"
-        :key="index"
-        class="image-container__img-responsive"
-        :src="image.url"
-        :alt="product.name"
-      />
+    <div class="image-container" ref="image-container">
       <img
         class="image-container__img"
         :src="selectedImage"
@@ -35,10 +34,34 @@ export default {
     return {
       selectedImage: null,
       selectedImageIndex: 0,
+      numberOfImages: this.product.pictures.length,
+      imageContainer: null,
+      imageContainerInitialWidth: null,
+      imageContainerWidth: null,
+      maxScroll: null,
+      actualScroll: null,
+      cancelLeft: false,
+      cancelRight: false,
     };
   },
   created() {
     this.selectedImage = this.product.pictures[0].url;
+  },
+  mounted() {
+    this.imageContainer = this.$refs["image-container"];
+    let touchStart;
+    let touchEnd;
+    this.imageContainer.addEventListener("touchstart", (event) => {
+      touchStart = event.changedTouches[0].clientX;
+    });
+    this.imageContainer.addEventListener("touchend", (event) => {
+      touchEnd = event.changedTouches[0].clientX;
+      if (Math.floor(touchStart - touchEnd) > 200) {
+        this.turnPhoto();
+      } else if (Math.floor(touchStart - touchEnd) < -200) {
+        this.returnPhoto();
+      }
+    });
   },
   methods: {
     changeImage(urlImage, imgIndex) {
@@ -51,18 +74,16 @@ export default {
         this.selectedImage = this.product.pictures[maxIndex - 1].url;
         this.selectedImageIndex = maxIndex - 1;
       } else {
-        this.selectedImage = this.product.pictures[
-          this.selectedImageIndex - 1
-        ].url;
+        this.selectedImage =
+          this.product.pictures[this.selectedImageIndex - 1].url;
         this.selectedImageIndex--;
       }
     },
     turnPhoto() {
       let maxIndex = parseInt(this.product.pictures.length);
       if (this.selectedImageIndex < maxIndex - 1) {
-        this.selectedImage = this.product.pictures[
-          this.selectedImageIndex + 1
-        ].url;
+        this.selectedImage =
+          this.product.pictures[this.selectedImageIndex + 1].url;
         this.selectedImageIndex++;
       } else {
         this.selectedImage = this.product.pictures[0].url;
@@ -75,6 +96,7 @@ export default {
 
 <style lang="scss" scoped>
 .product-image {
+  position: relative;
   margin-top: 50px;
   width: 55%;
   display: flex;
@@ -82,25 +104,28 @@ export default {
 }
 
 .thumbnail-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 25%;
-  height: 100%;
+  height: 90vh;
   overflow-y: scroll;
-  &::-webkit-scrollbar-track {
+  &:hover::-webkit-scrollbar-track {
     background-color: #efefef;
   }
-  &::-webkit-scrollbar {
-    width: 5px;
-  }
-  &::-webkit-scrollbar-thumb {
+  &:hover::-webkit-scrollbar-thumb {
     border-radius: 20px;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
     background-color: rgba(0, 0, 0, 0.1);
   }
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
 }
 
 .thumbnail-container {
-  width: 10em;
-  height: 10em;
+  width: 5em;
+  height: 5em;
   box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.2);
   border: none;
   border-radius: 6px;
@@ -118,8 +143,28 @@ export default {
   }
 }
 
+.thumbnail-button {
+  width: 8em;
+  height: 8em;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 6px;
+  background-color: white;
+  &:not(:first-child) {
+    margin: 5px 0px;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
 .image-container {
-  width: 65%;
+  width: 75%;
   height: 550px;
   display: flex;
   align-items: center;
@@ -129,6 +174,7 @@ export default {
   &__img {
     width: 100%;
     height: 100%;
+    margin-left: 1%;
     object-fit: contain;
   }
   &__img-responsive {
@@ -136,38 +182,47 @@ export default {
   }
 }
 
-@media (max-width: 1150px) {
-  .product-image {
-    flex-direction: column;
-    align-items: center;
+.img-button {
+  &__left,
+  &__right {
+    display: none;
+    position: absolute;
+    top: 50%;
+    border: none;
+    background: none;
+    font-size: 40px;
+    color: rgb(180, 180, 180);
   }
+  &__left {
+    left: 30px;
+  }
+  &__right {
+    right: 30px;
+  }
+}
+
+@media (max-width: 1150px) {
   .image-container {
     width: 90%;
-  }
-  .thumbnail-group {
-    width: 95%;
-    height: 20%;
+    align-items: center;
+    margin-right: 1%;
   }
 }
 
 @media (max-width: 770px) {
+  .product-image {
+    width: 100%;
+    margin-top: 20px;
+  }
   .image-container {
     overflow-x: scroll;
     overflow-y: hidden;
     width: 90%;
-    &__img {
-      display: none;
-    }
-    &__img-responsive {
+  }
+  .img-button {
+    &__left,
+    &__right {
       display: block;
-      scroll-snap-align: start;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      flex: 0 0 100%;
-      &:target {
-        transform: scale(0.8);
-      }
     }
   }
   .thumbnail-group {

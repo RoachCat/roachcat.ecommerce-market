@@ -1,15 +1,17 @@
 <template>
   <div class="header">
     <div class="header-bar">
-      <p class="home" @click="$router.push({ name: 'Home' })">Soy un Home jasjasajs</p>
+      <p class="home" @click="goToSection('Home')">Soy un Home jasjasajs</p>
       <div class="search-input-container">
         <input
           class="search-input-container__search-input"
           type="text"
           placeholder="Busca un producto..."
           ref="search-input"
+          v-model="searchData"
+          @keyup.enter="searchItems"
         />
-        <button class="search-input-container__button" @click="search">
+        <button class="search-input-container__button" @click="searchItems">
           <i class="fas fa-search"></i>
         </button>
       </div>
@@ -34,6 +36,11 @@
 <script>
 export default {
   name: "Header",
+  props: {
+    cleanInputFlag: {
+      type: Number,
+    },
+  },
   data() {
     return {
       navBarItems: [
@@ -48,20 +55,43 @@ export default {
           icon: "",
         },
       ],
+      searchData: "",
     };
   },
+  watch: {
+    cleanInputFlag() {
+      this.searchData = "";
+      localStorage.clear();
+    },
+  },
+  created() {
+    if (localStorage.getItem("searchValue")) {
+      this.searchData = localStorage.getItem("searchValue");
+    }
+  },
   mounted() {
-    this.$refs["search-input"].focus();
+    if (this.$route.name === "Home") {
+      this.$refs["search-input"].focus();
+    }
   },
   methods: {
-    search() {
-      console.log("Hola");
+    async searchItems() {
+      if (this.searchData !== "" && this.searchData !== null) {
+        this.$router.push({
+          name: "ProductsSought",
+          params: { value: this.searchData },
+        });
+      }
+      this.$refs["search-input"].blur();
+      localStorage.setItem("searchValue", this.searchData);
     },
     goToSection(sectionName) {
       if (sectionName === "Sidebar") {
         this.$emit("displaySidebar", true);
       } else {
-        this.$router.push({name: sectionName})
+        this.$router.push({ name: sectionName });
+        this.searchData = "";
+        localStorage.clear();
       }
     },
   },
@@ -77,11 +107,11 @@ export default {
   background-color: $header-color;
 }
 
-.home{
+.home {
   top: 35px;
   left: 50px;
   position: absolute;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 }

@@ -3,11 +3,15 @@
     <div class="body-overlay" id="body-overlay" ref="body-overlay"></div>
     <Sidebar
       @handleSidebarStatus="handleShowSidebar"
+      @handleSearchInputFlag="handleSearchInputFlag"
       :sidebarFlag="showSidebar"
       ref="sidebar"
       id="sidebar"
     />
-    <Header @displaySidebar="handleShowSidebar" />
+    <Header
+      @displaySidebar="handleShowSidebar"
+      :cleanInputFlag="cleanInputFlag"
+    />
     <router-view />
   </div>
 </template>
@@ -28,13 +32,13 @@ export default {
       let sidebar = document.getElementById("sidebar");
       if (this.showSidebar) {
         sidebar.style.left = "0";
-        document.body.style.overflow = "hidden"
+        document.body.style.overflow = "hidden";
         bodyOverlay.style.display = "block";
         bodyOverlay.addEventListener("click", () => {
           this.showSidebar = false;
         });
       } else {
-        document.body.style.overflow = "initial"
+        document.body.style.overflow = "initial";
         sidebar.style.left = "-500px";
         bodyOverlay.style.display = "none";
       }
@@ -43,11 +47,15 @@ export default {
   data() {
     return {
       showSidebar: false,
+      cleanInputFlag: 0,
     };
   },
   methods: {
     handleShowSidebar(data) {
       this.showSidebar = data;
+    },
+    handleSearchInputFlag() {
+      this.cleanInputFlag++;
     },
   },
 };

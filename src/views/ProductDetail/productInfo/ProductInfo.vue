@@ -33,9 +33,6 @@ export default {
   data() {
     return {};
   },
-  created() {
-    console.log(this.product);
-  },
 };
 </script>
 
@@ -79,6 +76,12 @@ export default {
     &:focus {
       outline: 0;
     }
+  }
+}
+
+@media (max-width: 770px) {
+  .product-info{
+    margin-top: 5%;
   }
 }
 </style>

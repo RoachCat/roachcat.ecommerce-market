@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar" name="sidebar" id="sidebar">
     <div class="sidebar-container">
-      <h2 class="sidebar-container__title">Categorías</h2>
+      <h2 class="sidebar-container__title sidebar-container__title--red">Categorías</h2>
       <ul class="categories">
         <li
           class="categories__category"
@@ -39,6 +39,7 @@ export default {
         },
       });
       this.hideSidebar();
+      this.$emit("handleSearchInputFlag");
     },
     hideSidebar() {
       let sidebar = document.getElementById("sidebar");
@@ -84,6 +85,7 @@ export default {
     // margin-bottom: 0px;
   }
 }
+
 .categories {
   padding: 0px;
   display: flex;

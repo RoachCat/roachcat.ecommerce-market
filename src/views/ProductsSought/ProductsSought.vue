@@ -1,16 +1,13 @@
 <template>
-  <div class="category">
+  <div class="products-sought">
     <div class="spinner-container" v-if="!thereIsData">
       <Loading />
     </div>
     <template v-else>
-      <h1>{{ this.selectedCategory.name }}</h1>
-      <section class="category-content">
-        <CategorySidebar
-          v-if="selectedCategory.children_categories.length > 0"
-          :childrenCategories="selectedCategory"
-        />
-        <ListItems :products="productsByCategory" />
+      <h1>Resultados de la búsqueda: {{ $route.params.value }}</h1>
+      <section class="products-sought-content">
+        <CategorySidebar :childrenCategories="selectedCategory" />
+        <ListItems :products="products" />
       </section>
     </template>
   </div>
@@ -22,7 +19,7 @@ import CategorySidebar from "@/components/CategorySidebar";
 import Loading from "@/components/Loading";
 
 export default {
-  name: "Category",
+  name: "ProductsSought",
   components: {
     ListItems,
     CategorySidebar,
@@ -30,38 +27,36 @@ export default {
   },
   data() {
     return {
-      selectedCategory: null,
-      productsByCategory: null,
+      products: null,
       thereIsData: false,
+      selectedCategory: null,
     };
   },
   watch: {
     "$route.path": async function () {
       this.thereIsData = false;
-      this.getCategoryInfo();
-      this.getProductsByCategory();
+      this.getProducts();
     },
   },
-  async created() {
-    await this.getCategoryInfo();
-    await this.getProductsByCategory();
+  created() {
+    this.getProducts();
   },
   methods: {
-    async getCategoryInfo() {
-      this.selectedCategory = await this.$store.dispatch(
-        "categories/getSidebarCategoryInfo",
-        this.$route.params.id
-      );
-    },
-    async getProductsByCategory() {
+    async getProducts() {
       let params = {
-        category: this.$route.params.id
+        q: this.$route.params.value,
       };
       let response = await this.$store.dispatch(
-        "products/getProductsByCategory",
+        "products/getProductBySearch",
         params
       );
-      this.productsByCategory = response.results;
+      let categoryId = response.filters[0].values[0].path_from_root[0].id;
+      let categories = await this.$store.dispatch(
+        "categories/getSidebarCategoryInfo",
+        categoryId
+      );
+      this.selectedCategory = categories;
+      this.products = response.results;
       this.thereIsData = true;
     },
   },
@@ -69,12 +64,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.category-content {
+.products-sought-content {
   width: 100%;
   max-width: 1500px;
   display: flex;
   margin: 0px auto;
 }
+
 .spinner-container {
   position: relative;
   width: 100%;

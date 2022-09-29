@@ -21,9 +21,10 @@
 <script>
 export default {
   name: "CategorySidebar",
-  props: ["childrenCategories"],
-  data() {
-    return {};
+  props: {
+    childrenCategories:{
+      type: Object
+    }
   },
   methods: {
     async goToCategoryView(categoryId) {
