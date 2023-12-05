@@ -8,8 +8,6 @@ module.exports = {
       },
     },
   },
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/roachcat.ecommerce-market'
-    : '/'
+  publicPath:
+    process.env.NODE_ENV === "production" ? "/roachcat.ecommerce-market" : "/",
 };
-

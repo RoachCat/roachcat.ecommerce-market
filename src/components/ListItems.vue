@@ -30,8 +30,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.list-items{
-  display: 	flex;
+.list-items {
+  display: flex;
   flex-direction: column;
   align-items: center;
 }

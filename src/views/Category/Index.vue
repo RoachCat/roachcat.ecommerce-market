@@ -55,7 +55,7 @@ export default {
     },
     async getProductsByCategory() {
       let params = {
-        category: this.$route.params.id
+        category: this.$route.params.id,
       };
       let response = await this.$store.dispatch(
         "products/getProductsByCategory",

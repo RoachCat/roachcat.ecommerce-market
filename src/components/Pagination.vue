@@ -38,7 +38,7 @@ export default {
         pagesToPush = this.pages;
       }
       if (currentPage >= 1 || currentPage <= 5) {
-        pagesToPush = 10        
+        pagesToPush = 10;
       }
       for (let i = 1; i <= pagesToPush; i++) {
         this.pagesInPagination.push(i);

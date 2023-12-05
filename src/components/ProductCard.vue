@@ -1,7 +1,11 @@
 <template>
   <div class="product-card" @click="goToProduct(product.id)">
     <div class="img-container">
-      <img class="img-container__img" :src="product.thumbnail" :alt="product.name" />
+      <img
+        class="img-container__img"
+        :src="product.thumbnail"
+        :alt="product.name"
+      />
     </div>
     <hr class="product-card__wrapper-line" />
     <div class="info-container">
@@ -81,5 +85,4 @@ export default {
     font-size: 18px;
   }
 }
-
 </style>

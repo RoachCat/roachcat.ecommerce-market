@@ -1,10 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home/Index.vue";
-import ProductDetail from "../views/ProductDetail/Index.vue"
-import Category from "../views/Category/Index.vue"
-import About from "../views/About/Index.vue"
-import ProductsSought from "../views/ProductsSought/ProductsSought"
+import ProductDetail from "../views/ProductDetail/Index.vue";
+import Category from "../views/Category/Index.vue";
+import About from "../views/About/Index.vue";
+import ProductsSought from "../views/ProductsSought/ProductsSought";
 
 Vue.use(VueRouter);
 
@@ -14,7 +14,7 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      title: "Ecommerce"
+      title: "Ecommerce",
     },
   },
   {
@@ -22,7 +22,7 @@ const routes = [
     name: "About",
     component: About,
     meta: {
-      title: "Ecommerce - Acerca de"
+      title: "Ecommerce - Acerca de",
     },
   },
   {
@@ -30,7 +30,7 @@ const routes = [
     name: "Category",
     component: Category,
     meta: {
-      title: ""
+      title: "",
     },
   },
   {
@@ -43,7 +43,7 @@ const routes = [
     name: "ProductDetail",
     component: ProductDetail,
     meta: {
-      title: ""
+      title: "",
     },
   },
 ];

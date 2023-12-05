@@ -1,7 +1,9 @@
 <template>
   <div class="sidebar" name="sidebar" id="sidebar">
     <div class="sidebar-container">
-      <h2 class="sidebar-container__title sidebar-container__title--red">Categorías</h2>
+      <h2 class="sidebar-container__title sidebar-container__title--red">
+        Categorías
+      </h2>
       <ul class="categories">
         <li
           class="categories__category"

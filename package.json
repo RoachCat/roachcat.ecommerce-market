@@ -9,10 +9,10 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
-    "axios": "^0.21.1",
+    "axios": "1.6.2",
     "core-js": "^3.6.5",
     "swrv": "^0.9.4",
-    "vue": "^2.6.11",
+    "vue": "^2.6.14",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
@@ -28,10 +28,10 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^6.2.2",
     "lint-staged": "^9.5.0",
-    "node-sass": "^5.0.0",
     "prettier": "^2.2.1",
-    "sass-loader": "^10.1.0",
-    "vue-template-compiler": "^2.6.11"
+    "sass": "^1.69.5",
+    "sass-loader": "10.1.0",
+    "vue-template-compiler": "2.6.14"
   },
   "eslintConfig": {
     "root": true,

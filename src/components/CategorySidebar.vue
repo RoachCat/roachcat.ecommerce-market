@@ -22,9 +22,9 @@
 export default {
   name: "CategorySidebar",
   props: {
-    childrenCategories:{
-      type: Object
-    }
+    childrenCategories: {
+      type: Object,
+    },
   },
   methods: {
     async goToCategoryView(categoryId) {

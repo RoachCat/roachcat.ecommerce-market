@@ -7,17 +7,13 @@
 </template>
 
 <script>
-
 export default {
   name: "Home",
-  components: {
-  },
+  components: {},
   data() {
-    return {
-    };
+    return {};
   },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

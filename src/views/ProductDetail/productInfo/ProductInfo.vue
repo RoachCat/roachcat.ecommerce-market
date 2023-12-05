@@ -80,7 +80,7 @@ export default {
 }
 
 @media (max-width: 770px) {
-  .product-info{
+  .product-info {
     margin-top: 5%;
   }
 }
